@@ -21,7 +21,7 @@ sampleNum = 0
 while True:
     success, img = video_capture.read()
     cvtImg = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img = cv2.flip(img, 1)
+    # img = cv2.flip(img, 1)
     saveImg = img
     faceLocations = face_recognition.face_locations(cvtImg)
 

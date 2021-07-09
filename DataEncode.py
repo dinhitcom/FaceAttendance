@@ -9,7 +9,7 @@ def encodeImages(images):
     encodedImages = []
     for img in images:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        if (face_recognition.face_encodings(img)):
+        if (face_recognition.face_encodings(img, model = 'large')):
             encodedImg = face_recognition.face_encodings(img)[0]
             encodedImages.append(encodedImg)
     return encodedImages
