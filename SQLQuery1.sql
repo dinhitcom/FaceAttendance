@@ -109,6 +109,14 @@ INSERT INTO Attendance(StudentID, ClassID, AttendanceDate, AttendanceTime) VALUE
 
 SELECT * FROM Attendance
 
-SELECT ClassID, ClassName FROM Class WHERE TeacherID = 1 AND ClassTime = 6
+SELECT ClassID, ClassName FROM Class WHERE TeacherID = 1 AND ClassTime = 5
 SELECT * FROM Teacher
 
+SELECT * FROM Class
+
+SELECT * FROM StudentImage
+
+curselectClass = todayClassListbox.curselection()
+if curselectClass != 0:
+    classId = todayClassList[curselectClass].ClassID
+    print(classId)

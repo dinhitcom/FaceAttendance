@@ -37,6 +37,7 @@ while True:
     facesCurrentLocation = face_recognition.face_locations(resizedImg)
     encodedCurrentFaces = face_recognition.face_encodings(resizedImg, facesCurrentLocation)
     for currentFace, location in zip(encodedCurrentFaces, facesCurrentLocation):
+        minDistance = 0
         id = ""
         name = "Unknown"
         # knownFace = pickle.loads(facesData[0].EncodedImage)
@@ -44,14 +45,18 @@ while True:
         # print(test)
         for i, face in enumerate(facesData):
             faceEncodedData = pickle.loads(face.EncodedImage)
-            if face_recognition.compare_faces([faceEncodedData], currentFace):
+            if face_recognition.compare_faces([faceEncodedData],currentFace):
+                print('run')
                 faceDistance = face_recognition.face_distance([faceEncodedData], currentFace);
-                if faceDistance < 0.5:
+                if i == 0:
+                    minDistance = faceDistance
                     id = face.StudentID
-                    break
+                elif faceDistance < minDistance:
+                    minDistance = faceDistance
+                    id = face.StudentID
         y1, x2, y2, x1 = location
         cv2.rectangle(img, (x1 - 5, y1 - 5), (x2 + 5, y2 + 5), (0, 255, 0), 2)
-        if id != "":
+        if id != "" and minDistance < 0.5:
             studentData = DatabaseUtils.getStudentNameById(id)
             # cv2.rectangle(img, (x1, y2-35), (x2, y2), (0,255,0), cv2.FILLED)
 

@@ -9,9 +9,10 @@ def encodeImages(images):
     encodedImages = []
     for img in images:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        if (face_recognition.face_encodings(img, model = 'large')):
-            encodedImg = face_recognition.face_encodings(img)[0]
-            encodedImages.append(encodedImg)
+        encodedFaces = face_recognition.face_encodings(img, model='large')
+            # encodedImg = face_recognition.face_encodings(img)[0]
+        if (encodedFaces):
+            encodedImages.append(encodedFaces[0])
     return encodedImages
 
 def EncodeAllImage():
@@ -21,12 +22,12 @@ def EncodeAllImage():
         id = folder
         folderPath = os.path.join(PATH, folder)
         images = Utils.loadAndResizeImagesFromFolder(folderPath, RESIZE_SCALE)
-        # print(len(images))
+        print(len(images))
         encodedImages = encodeImages(images)
-        # print(len(encodedImages))
-        DatabaseUtils.insertFaceData(id, encodedImages)
+        print(len(encodedImages))
+        # DatabaseUtils.insertFaceData(id, encodedImages)
 
 
-EncodeAllImage()
+# EncodeAllImage()
 
 
